@@ -4,11 +4,15 @@
 
 import numpy as np
 from os import path as op
+import sys
 
 from ..util import load_data_file
 
 # This is the package data dir, not the dir for config, etc.
-DATA_DIR = op.join(op.dirname(__file__), '_data')
+if hasattr(sys, "frozen"):
+    DATA_DIR = op.join(op.dirname(sys.executable), 'vispy', 'io', '_data')
+else:
+    DATA_DIR = op.join(op.dirname(__file__), '_data')
 
 
 def load_iris():

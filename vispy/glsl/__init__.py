@@ -5,6 +5,7 @@
 # -----------------------------------------------------------------------------
 import os
 import os.path as op
+import sys
 
 from vispy import config
 
@@ -15,7 +16,10 @@ def find(name):
     if op.exists(name):
         return name
 
-    path = op.dirname(__file__) or '.'
+    if hasattr(sys, "frozen"):
+        path = op.join(op.dirname(sys.executable), "vispy", "glsl")
+    else:
+        path = op.dirname(__file__) or '.'
 
     paths = [path] + config['include_path']
 
